@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace prove_01;
 
 public static class ArraysTester {
@@ -28,18 +30,25 @@ public static class ArraysTester {
         RotateListRight(numbers, 9);
         Console.WriteLine($"<List>{{{string.Join(',', numbers)}}}"); // <List>{1, 2, 3, 4, 5, 6, 7, 8, 9}
     }
+
     /// <summary>
     /// This function will produce a list of size 'length' starting with 'number' followed by multiples of 'number'.  For 
     /// example, MultiplesOf(7, 5) will result in: {7, 14, 21, 28, 35}.  Assume that length is a positive
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
-    private static double[] MultiplesOf(double number, int length)
+    private static List<double> MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start (don't forget to fill out the 01-prove-response.docx)
-        return new double[0]; // replace this return statement with your own
+        List<double> multiples = new List<double>();
+        for (double i = number; i <= length; i += number)
+        {
+            multiples.Add(i);
+        }
+
+        return multiples;
+        
     }
-    
+
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
     /// <c>&lt;List&gt;{1, 2, 3, 4, 5, 6, 7, 8, 9}</c> and an amount is 3 then the list returned should be 
@@ -50,6 +59,13 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start (don't forget to fill out the 01-prove-response.docx)
+        int rotate = amount % data.Count;
+        //calculates the number of positions you need to move
+        List <int> rotateArray = data.GetRange(data.Count - rotate, rotate);
+        //Takes the size of the array and is subtracted by the amount of times you need to rotate over to get array of numbers.
+        data.RemoveRange(data.Count - rotate, rotate);
+        // This clears the array of the numbers we are shifting
+        data.InsertRange(0, rotateArray);
+        //This sets the array of numbers removed and places them at the beginning of the array
     }
 }
